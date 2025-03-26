@@ -8,6 +8,7 @@ const request = (option: any) => {
   const { headersType, headers, ...otherOption } = option
   return service({
     ...otherOption,
+    timeout: 6000000,
     headers: {
       'Content-Type': headersType || default_headers,
       ...headers
@@ -24,8 +25,7 @@ export default {
     return res.data as unknown as T
   },
   postOriginal: async (option: any) => {
-    const res = await request({ method: 'POST', ...option })
-    return res
+    return await request({ method: 'POST', ...option })
   },
   delete: async <T = any>(option: any) => {
     const res = await request({ method: 'DELETE', ...option })
